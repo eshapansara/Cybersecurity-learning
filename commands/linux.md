@@ -309,7 +309,7 @@ whoami
 Example output:
 
 ```text
-isha
+John
 ```
 
 ---
@@ -325,7 +325,7 @@ id
 Example output:
 
 ```text
-uid=1000(isha) gid=1000(isha) groups=1000(isha),27(sudo)
+uid=1000(John) gid=1000(John) groups=1000(John),27(sudo)
 ```
 
 ---
