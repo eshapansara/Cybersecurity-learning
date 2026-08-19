@@ -50,7 +50,7 @@ pwd
 Example output:
 
 ```text
-/home/isha
+/home/John
 ```
 
 ---
