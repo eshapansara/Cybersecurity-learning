@@ -37,7 +37,7 @@ Contains the home directories of normal users.
 Example:
 
 ```text
-/home/isha
+/home/John
 ```
 
 ---
