@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from pwdlib import PasswordHash
+from pwdlib.hashers.bcrypt import BcryptHasher
 from datetime import datetime, timedelta, timezone
 import jwt
 from dotenv import load_dotenv
@@ -14,7 +15,7 @@ from app.schemas import UserCreate, UserProfile
 
 app = FastAPI()
 
-password_hash = PasswordHash.recommended()
+password_hash = PasswordHash((BcryptHasher(),))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"

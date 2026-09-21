@@ -1,97 +1,84 @@
-# SentinelX 🛡️
+# SentinelX
 
-## Overview
+SentinelX is a backend authentication project built with Python, FastAPI, PostgreSQL, SQLAlchemy, JWT, and bcrypt.
 
-SentinelX is a personal cybersecurity project that I am building while learning cybersecurity.
+## Features
 
-The goal is to progressively build a security monitoring and detection platform while developing practical skills in networking, Linux, web security, detection engineering, incident response, cloud security, machine learning, and AI.
+* User registration
+* Secure password hashing with bcrypt
+* User login with JWT access tokens
+* Protected user profile endpoint
+* Role-based admin authorization
+* Logout through client-side JWT disposal
+* REST API testing with Postman
 
-I will build SentinelX step by step as I learn new cybersecurity concepts rather than trying to build the entire system at once.
+## Tech Stack
 
-## Why I'm Building SentinelX
+* **Python**
+* **FastAPI**
+* **PostgreSQL**
+* **SQLAlchemy**
+* **JWT**
+* **bcrypt**
+* **Postman**
 
-I want to learn cybersecurity through hands-on experience instead of only watching courses and memorizing concepts.
+## API Endpoints
 
-SentinelX will allow me to:
+| Method | Endpoint    | Description                               | Authentication            |
+| ------ | ----------- | ----------------------------------------- | ------------------------- |
+| GET    | `/`         | Check that SentinelX is running           | None                      |
+| POST   | `/register` | Register a new user                       | None                      |
+| POST   | `/login`    | Authenticate a user and receive a JWT     | None                      |
+| GET    | `/profile`  | Retrieve the authenticated user's profile | JWT required              |
+| GET    | `/admin`    | Access the admin area                     | JWT + admin role required |
+| POST   | `/logout`   | Log out by discarding the client-side JWT | JWT required              |
 
-* Learn a cybersecurity concept
-* Apply it to a real project
-* Experiment in my own controlled lab
-* Simulate attacks
-* Detect and investigate those attacks
-* Document what I learned
-* Improve the system as my skills grow
+## Authentication
 
-## Long-Term Goals
+Passwords are hashed with **bcrypt** before being stored in PostgreSQL. During login, the submitted password is verified against the stored bcrypt hash.
 
-The eventual goal is for SentinelX to include:
+Successful login generates a **JWT access token** that is used to access protected endpoints such as `/profile` and `/admin`.
 
-* A secure web application
-* Authentication and authorization
-* Security logging
-* Detection rules
-* Security alerts
-* Incident management
-* Attack simulation
-* MITRE ATT&CK mapping
-* Network monitoring
-* Cloud security monitoring
-* Machine-learning-based anomaly detection
-* AI-assisted security investigation
-* Security response automation
+Admin authorization checks the user's `is_admin` role before allowing access to the `/admin` endpoint.
 
-## Planned Technology
+The logout endpoint uses a stateless JWT approach: the client discards its access token. Tokens are not server-side blacklisted and remain valid until they expire if they are still possessed by a client.
 
-The technology stack will evolve as the project grows. Potential technologies include:
+## Testing
 
-* Python
-* FastAPI
-* PostgreSQL
-* Linux
-* Git/GitHub
-* Wireshark
-* tcpdump
-* Scapy
-* SIEM tools
-* Google Cloud Platform
-* Machine Learning
-* AI/LLMs
+API functionality was tested using **Postman**, including:
 
-## Development Approach
+* Successful user registration
+* Successful login
+* Incorrect password rejection
+* Authenticated profile access
+* Logout
+* Rejection of unauthenticated requests
+* Rejection of non-admin users attempting to access `/admin`
 
-SentinelX will be developed incrementally.
+The PostgreSQL database was also checked to confirm that user passwords are stored as bcrypt hashes rather than plaintext passwords.
 
-```text
-Learn
-  ↓
-Experiment
-  ↓
-Build
-  ↓
-Attack my own lab
-  ↓
-Detect
-  ↓
-Investigate
-  ↓
-Improve
+## Running the Project
+
+Activate the virtual environment:
+
+```bash
+source venv/bin/activate
 ```
 
-The final architecture is the destination, not the starting point.
+Start the FastAPI development server:
 
-## Current Status
+```bash
+uvicorn app.main:app --reload
+```
 
-🟡 **In Progress — Cybersecurity Foundations**
+The API runs locally at:
 
-Currently focusing on:
+```text
+http://127.0.0.1:8000
+```
 
-* Linux
-* Networking
-* Cybersecurity fundamentals
-* Web security
-* Python
-* SQL
-* Security monitoring
-* Detection and response
+FastAPI's interactive API documentation is available at:
 
-More features will be added as I progress through my cybersecurity learning roadmap.
+```text
+http://127.0.0.1:8000/docs
+```
