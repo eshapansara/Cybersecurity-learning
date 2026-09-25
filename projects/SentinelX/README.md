@@ -2,6 +2,39 @@
 
 SentinelX is a backend authentication project built with Python, FastAPI, PostgreSQL, SQLAlchemy, JWT, and bcrypt.
 
+## Architecture
+
+```mermaid
+flowchart TB
+    Client["Client<br/>Postman / Web Client"]
+
+    subgraph SentinelX["SentinelX Backend"]
+        API["FastAPI API"]
+
+        Auth["Authentication<br/>JWT + bcrypt"]
+        Users["User Management"]
+        Admin["Admin Operations"]
+
+        ORM["SQLAlchemy ORM"]
+    end
+
+    DB[("PostgreSQL Database")]
+    ENV["Environment Configuration<br/>.env"]
+
+    Client -->|"HTTP / JSON"| API
+
+    API --> Auth
+    API --> Users
+    API --> Admin
+
+    Auth --> ORM
+    Users --> ORM
+    Admin --> ORM
+
+    ORM --> DB
+
+    ENV -.->|"Secrets & Configuration"| API
+
 ## Features
 
 * User registration
