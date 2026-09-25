@@ -34,7 +34,7 @@ flowchart TB
     ORM --> DB
 
     ENV -.->|"Secrets & Configuration"| API
-
+```
 ## Features
 
 * User registration
